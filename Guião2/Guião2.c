@@ -51,12 +51,27 @@ void terceiro(){
 }
 
 void quarto(){
-    
+    for (int i = 1; i <= 10; i++){
+        int res = fork();
+        if (res == 0){
+            printf("FILHO %d | my pid: %d\n", i, getpid());
+            printf("FILHO %d | my parent pid: %d\n", i, getppid());
+            exit(i);
+        }
+    }
+
+    for (int i = 1; i <= 10; i++){
+        int status;
+        wait(&status);
+        printf("PAI | child %d exit code: %d\n", i, WEXITSTATUS(status));
+    }
+
+    printf("Todos os filhos terminaram\n");
 }
 
 /*
-4. Implemente um programa que crie dez processos filhos que dever˜ao executar em concorrˆencia. O pai
-dever´a esperar pelo fim da execuc¸ ˜ao de todos os seus filhos, imprimindo os respetivos c´odigos de sa´ıda.
+4. Implemente um programa que crie dez processos filhos que deverao executar em concorrencia. O pai
+devera esperar pelo fim da execucao de todos os seus filhos, imprimindo os respetivos codigos de saıda.
 
 5. Pretende-se determinar a existˆencia de um determinado n´umero inteiro nas linhas de numa matriz de
 n´umeros inteiros, em que o n´umero de colunas ´e muito maior do que o n´umero de linhas. Implemente,
@@ -75,6 +90,7 @@ existˆencia de um determinado n´umero utilizando m´ultiplos processos.
 int main() {
     //primeiro();
     //segundo();
-    terceiro();
+    //terceiro();
+    quarto();
     return 0;
 }
